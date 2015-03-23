@@ -55,7 +55,7 @@ sysv-rc-conf exim4 off
 apt-file update
 
 # setting vnstat
-vnstat -u -i venet0
+vnstat -u -i eth0
 service vnstat restart
 
 # install screenfetch
@@ -144,8 +144,8 @@ tar xf vnstat_php_frontend-1.5.1.tar.gz
 rm vnstat_php_frontend-1.5.1.tar.gz
 mv vnstat_php_frontend-1.5.1 vnstat
 cd vnstat
-sed -i 's/eth0/venet0/g' config.php
-sed -i "s/\$iface_list = array('venet0', 'sixxs');/\$iface_list = array('venet0');/g" config.php
+sed -i 's/eth0/g' config.php
+sed -i "s/\$iface_list = array('eth0', 'sixxs');/\$iface_list = array('eth0');/g" config.php
 sed -i "s/\$language = 'nl';/\$language = 'en';/g" config.php
 sed -i 's/Internal/Internet/g' config.php
 sed -i '/SixXS IPv6/d' config.php
@@ -177,23 +177,22 @@ wget -O ps_mem.py "https://raw.github.com/pixelb/ps_mem/master/ps_mem.py"
 wget -O dropmon "https://raw.github.com/yurisshOS/debian7os/master/dropmon.sh"
 wget -O userlogin.sh "https://raw.github.com/yurisshOS/debian7os/master/userlogin.sh"
 wget -O userexpired.sh "https://raw.github.com/yurisshOS/debian7os/master/userexpired.sh"
-#wget -O userlimit.sh "https://raw.github.com/yurisshOS/debian7os/master/userlimit.sh"
+wget -O userlimit.sh "https://raw.github.com/yurisshOS/debian7os/master/userlimit.sh"
 wget -O expire.sh "https://raw.github.com/yurisshOS/debian7os/master/expire.sh"
-#wget -O autokill.sh "https://raw.github.com/yurisshOS/debian7os/master/autokill.sh"
-wget -O /etc/issue.net "https://raw.github.com/yurisshOS/debian7os/master/banner"
+wget -O autokill.sh "https://raw.github.com/yurisshOS/debian7os/master/autokill.sh"
 echo "@reboot root /root/userexpired.sh" > /etc/cron.d/userexpired
-#echo "@reboot root /root/userlimit.sh" > /etc/cron.d/userlimit
+echo "@reboot root /root/userlimit.sh" > /etc/cron.d/userlimit
 echo "0 */168 * * * root /sbin/reboot" > /etc/cron.d/reboot
 echo "* * * * * service dropbear restart" > /etc/cron.d/dropbear
-#echo "@reboot root /root/autokill.sh" > /etc/cron.d/autokill
-#sed -i '$ i\screen -AmdS check /root/autokill.sh' /etc/rc.local
+echo "@reboot root /root/autokill.sh" > /etc/cron.d/autokill
+sed -i '$ i\screen -AmdS check /root/autokill.sh' /etc/rc.local
 chmod +x bench-network.sh
 chmod +x speedtest_cli.py
 chmod +x ps_mem.py
 chmod +x userlogin.sh
 chmod +x userexpired.sh
-#chmod +x userlimit.sh
-#chmod +x autokill.sh
+chmod +x userlimit.sh
+chmod +x autokill.sh
 chmod +x dropmon
 chmod +x expire.sh
 
@@ -221,7 +220,6 @@ echo "===============================================" | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "Service"  | tee -a log-install.txt
 echo "-------"  | tee -a log-install.txt
-echo "OpenVPN  : TCP 1194 (client config : http://$MYIP:81/client.tar)"  | tee -a log-install.txt
 echo "OpenSSH  : 22, 80, 143"  | tee -a log-install.txt
 echo "Dropbear : 443, 110, 109"  | tee -a log-install.txt
 echo "Squid3   : 8080 (limit to IP SSH)"  | tee -a log-install.txt
@@ -236,7 +234,7 @@ echo "htop"  | tee -a log-install.txt
 echo "iftop"  | tee -a log-install.txt
 echo "mtr"  | tee -a log-install.txt
 echo "rkhunter"  | tee -a log-install.txt
-echo "nethogs: nethogs venet0"  | tee -a log-install.txt
+echo "nethogs: nethogs eth0"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "Script"  | tee -a log-install.txt
 echo "------"  | tee -a log-install.txt
@@ -246,7 +244,7 @@ echo "./speedtest_cli.py --share"  | tee -a log-install.txt
 echo "./bench-network.sh"  | tee -a log-install.txt
 echo "./userlogin.sh" | tee -a log-install.txt
 echo "./userexpired.sh" | tee -a log-install.txt
-#echo "./userlimit.sh 3 [ini utk melimit max 3 login]" | tee -a log-install.txt
+echo "./userlimit.sh 3 [ini utk melimit max 3 login]" | tee -a log-install.txt
 echo "sh dropmon [port] contoh: sh dropmon 443" | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "Fitur lain"  | tee -a log-install.txt

@@ -177,7 +177,7 @@ wget -O ps_mem.py "https://raw.github.com/pixelb/ps_mem/master/ps_mem.py"
 wget -O dropmon "https://raw.github.com/yurisshOS/debian7os/master/dropmon.sh"
 wget -O userlogin.sh "https://raw.github.com/yurisshOS/debian7os/master/userlogin.sh"
 wget -O userexpired.sh "https://raw.github.com/yurisshOS/debian7os/master/userexpired.sh"
-wget -O userlimit.sh "https://raw.github.com/yurisshOS/debian7os/master/userlimit.sh"
+wget -O userlimit.sh "https://raw.githubusercontent.com/Chairiel29/install/master/userlimit.sh"
 wget -O expire.sh "https://raw.github.com/yurisshOS/debian7os/master/expire.sh"
 wget -O autokill.sh "https://raw.github.com/yurisshOS/debian7os/master/autokill.sh"
 echo "@reboot root /root/userexpired.sh" > /etc/cron.d/userexpired

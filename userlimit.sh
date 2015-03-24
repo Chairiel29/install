@@ -2,7 +2,7 @@
 # Program untuk membatasi jumlah login user dropbear
 PARAM=$1
 
-echo -n > /tmp/pid2
+echo -n > /tmp/pid3
 ps ax|grep dropbear > /tmp/pid
 cat /tmp/pid | grep -i 'dropbear -p' > /tmp/pids
 cat /var/log/auth.log |  grep -i "Password auth succeeded" > /tmp/sks
@@ -38,7 +38,7 @@ echo "kill $p user $u"
 fi
 done
 rm -f /tmp/pid
-rm -f /tmp/pid2
+rm -f /tmp/pid3
 rm -f /tmp/pids
 rm -f /tmp/sks
 rm -f /tmp/user1
@@ -51,7 +51,7 @@ echo -n > /tmp/user3
 cat /tmp/pid3 | while read line;do
 set -- $line
 p=$1
-u=$2
+u=$3
 cat /tmp/user1 | grep -i $u > /dev/null
 if [ $? = 1 ];then
 echo $line >> /tmp/user1
@@ -60,31 +60,28 @@ cat /tmp/user2 | grep -i $u > /dev/null
 if [ $? = 1 ];then
 echo $line >> /tmp/user2
 else
-cat /tmp/user2 | grep -i $u > /dev/null
+cat /tmp/user3 | grep -i $u > /dev/null
 if [ $? = 1 ];then
 echo $line >> /tmp/user3
 else
-
 kill $p
 echo "kill $p user $u"
 fi
 fi
 done
 rm -f /tmp/pid
-rm -f /tmp/pid2
 rm -f /tmp/pid3
 rm -f /tmp/pids
 rm -f /tmp/sks
 rm -f /tmp/user1
 rm -f /tmp/user2
-rm -f /tmp/user3
+rm -f /tmp/user2
 exit 0
 ;;
 *)
   echo " gunakan perintah ./userlimit.sh 1 untuk limit 1 login saja"
-  echo " atau ./userlimit.sh 3  untuk melimit max 2 login"   
+  echo " atau ./userlimit.sh 2  untuk melimit max 2 login"   
 rm -f /tmp/pid
-rm -f /tmp/pid2
 rm -f /tmp/pid3
 rm -f /tmp/pids
 rm -f /tmp/sks

@@ -177,11 +177,9 @@ wget -O ps_mem.py "https://raw.github.com/pixelb/ps_mem/master/ps_mem.py"
 wget -O dropmon "https://raw.github.com/yurisshOS/debian7os/master/dropmon.sh"
 wget -O userlogin.sh "https://raw.github.com/yurisshOS/debian7os/master/userlogin.sh"
 wget -O userexpired.sh "https://raw.github.com/yurisshOS/debian7os/master/userexpired.sh"
-wget -O userlimit.sh "https://raw.github.com/yurisshOS/debian7os/master/userlimit.sh"
 wget -O expire.sh "https://raw.github.com/yurisshOS/debian7os/master/expire.sh"
 wget -O autokill.sh "https://raw.github.com/yurisshOS/debian7os/master/autokill.sh"
 echo "@reboot root /root/userexpired.sh" > /etc/cron.d/userexpired
-echo "@reboot root /root/userlimit.sh" > /etc/cron.d/userlimit
 echo "0 */168 * * * root /sbin/reboot" > /etc/cron.d/reboot
 echo "* * * * * service dropbear restart" > /etc/cron.d/dropbear
 echo "@reboot root /root/autokill.sh" > /etc/cron.d/autokill
@@ -191,7 +189,6 @@ chmod +x speedtest_cli.py
 chmod +x ps_mem.py
 chmod +x userlogin.sh
 chmod +x userexpired.sh
-chmod +x userlimit.sh
 chmod +x autokill.sh
 chmod +x dropmon
 chmod +x expire.sh

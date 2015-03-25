@@ -66,20 +66,6 @@ chmod +x /usr/bin/screenfetch
 echo "clear" >> .profile
 echo "screenfetch" >> .profile
 
-# install webserver
-cd
-rm /etc/nginx/sites-enabled/default
-rm /etc/nginx/sites-available/default
-wget -O /etc/nginx/nginx.conf "https://raw.github.com/yurisshOS/debian7os/master/nginx.conf"
-mkdir -p /home/vps/public_html
-echo "<pre>By Chairiel</pre>" > /home/vps/public_html/index.html
-echo "<?php phpinfo(); ?>" > /home/vps/public_html/info.php
-wget -O /etc/nginx/conf.d/vps.conf "https://raw.github.com/yurisshOS/debian7os/master/vps.conf"
-sed -i 's/listen = \/var\/run\/php5-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php5/fpm/pool.d/www.conf
-service php5-fpm restart
-service nginx restart
-
-
 # install badvpn
 wget -O /usr/bin/badvpn-udpgw "https://raw.github.com/yurisshOS/debian7os/master/badvpn-udpgw"
 if [ "$OS" == "x86_64" ]; then
@@ -195,7 +181,6 @@ service cron restart
 service nginx start
 service php-fpm start
 service vnstat restart
-service openvpn restart
 service snmpd restart
 service ssh restart
 service dropbear restart
